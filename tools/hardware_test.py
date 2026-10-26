@@ -286,6 +286,9 @@ def main(argv=None):
     clock = pygame.time.Clock()
 
     hw = create_hardware(force_mock=args.mock)
+    # The bench test always shows the live hardware panel, even on the Pi, as a
+    # second confirmation alongside the physical components.
+    config.SHOW_HARDWARE_PANEL = True
     print("hardware backend:", "MOCK (desktop)" if hw.is_mock else "Raspberry Pi GPIO")
     shim = _Shim(hw)
     stages = build_stages(shim)

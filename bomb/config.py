@@ -14,11 +14,13 @@ FPS = 60
 FULLSCREEN = False          # set True for the kiosk build on the Pi
 TITLE = "BOMB DIFFUSAL"
 
-# When no real GPIO is present we draw a small panel showing what Player 2's
-# hardware (LEDs / buttons / encoder) is doing, so the game is playable and
-# demonstrable on a plain desktop.
-SHOW_HARDWARE_PANEL = True
-PANEL_WIDTH = 300           # width of that right-hand mock panel
+# On the real bomb the screen and Player 2's hardware are physically separate,
+# so the game runs fullscreen with NO on-screen hardware panel. The panel is
+# only a desktop stand-in for absent hardware; __main__.py turns it on
+# automatically when running the keyboard/mouse mock (and --panel / --no-panel
+# override it). This default is the deployed, fullscreen-clean setting.
+SHOW_HARDWARE_PANEL = False
+PANEL_WIDTH = 300           # width of that right-hand mock panel (when shown)
 
 # Play-field width (everything left of the hardware panel).
 def play_width():

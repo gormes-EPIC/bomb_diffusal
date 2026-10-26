@@ -25,6 +25,10 @@ def main(argv=None):
                     help="run fullscreen (kiosk mode)")
     ap.add_argument("--windowed", action="store_true",
                     help="force a window even if config.FULLSCREEN is set")
+    ap.add_argument("--panel", action="store_true",
+                    help="show the on-screen Player 2 hardware panel")
+    ap.add_argument("--no-panel", action="store_true",
+                    help="hide the panel even on the desktop mock (clean fullscreen)")
     args = ap.parse_args(argv)
 
     audio.pre_init()        # must precede pygame.init() so tones don't crackle
@@ -41,6 +45,17 @@ def main(argv=None):
     clock = pygame.time.Clock()
 
     hw = create_hardware(force_mock=args.mock)
+
+    # The on-screen hardware panel is only a stand-in for missing hardware.
+    # Default: show it on the desktop mock, hide it on the real Pi (where the
+    # physical LEDs/buttons are Player 2's view and the screen is fullscreen).
+    if args.panel:
+        config.SHOW_HARDWARE_PANEL = True
+    elif args.no_panel:
+        config.SHOW_HARDWARE_PANEL = False
+    else:
+        config.SHOW_HARDWARE_PANEL = hw.is_mock
+
     game = Game(screen, hw)
 
     running = True

@@ -41,6 +41,18 @@ Enter, Backspace).
 
 Press `Space` to arm the bomb and to advance between modules; `Esc` quits.
 
+### The on-screen hardware panel
+
+On the real bomb the screen and Player 2's hardware are physically separate, so
+the game runs **fullscreen with no on-screen panel** — the puzzle fills the whole
+display. The right-hand panel (LEDs / buttons / encoder) only exists as a
+stand-in when there is no real hardware, so:
+
+- **Real Pi (GPIO):** no panel, fullscreen puzzle — the default.
+- **Desktop mock:** the panel is shown automatically so you can still playtest.
+- Override with `--panel` (force it on) or `--no-panel` (force the clean
+  fullscreen layout even on a desktop, e.g. to preview the real thing).
+
 ## Running on the Raspberry Pi
 
 1. Flash Raspberry Pi OS (with desktop) and boot to the desktop.
