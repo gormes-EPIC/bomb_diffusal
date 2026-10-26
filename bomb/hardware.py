@@ -172,13 +172,26 @@ class PiHardware(_BaseHardware):
 
 def create_hardware(force_mock: bool = False) -> _BaseHardware:
     """Return a PiHardware if gpiozero + real pins are available, else mock."""
-    if not force_mock:
-        try:
-            import gpiozero  # noqa: F401
-            # Probe: creating a Device factory fails off-Pi.
-            from gpiozero import Device
-            Device.ensure_pin_factory()
-            return PiHardware()
-        except Exception:
-            pass
-    return MockHardware()
+    if force_mock:
+        return MockHardware()
+
+    # If gpiozero is not installed at all we are almost certainly on a desktop:
+    # fall back quietly.
+    try:
+        import gpiozero  # noqa: F401
+    except Exception:
+        return MockHardware()
+
+    # gpiozero IS installed (probably a Pi), so a failure here is worth
+    # reporting rather than silently mocking -- it is usually a missing backend.
+    try:
+        from gpiozero import Device
+        Device.ensure_pin_factory()      # raises BadPinFactory if none works
+        return PiHardware()
+    except Exception as e:
+        print("[hardware] gpiozero is installed but real GPIO could not be "
+              "started -- falling back to MOCK.")
+        print(f"[hardware]   reason: {type(e).__name__}: {e}")
+        print("[hardware]   On Raspberry Pi OS Bookworm, install the lgpio "
+              "backend:  sudo apt install python3-lgpio   (or: pip install lgpio)")
+        return MockHardware()
