@@ -27,6 +27,7 @@ def main(argv=None):
                     help="force a window even if config.FULLSCREEN is set")
     args = ap.parse_args(argv)
 
+    audio.pre_init()        # must precede pygame.init() so tones don't crackle
     pygame.init()
     audio.init()
 

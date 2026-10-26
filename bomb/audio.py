@@ -13,16 +13,35 @@ import math
 import pygame
 
 _READY = False
-_CHANNELS = 1
+_CHANNELS = 2
 _RATE = 44100
+# A large-ish buffer avoids underruns ("crackle") under the 60fps game loop,
+# especially on a Raspberry Pi. ~2048 frames ~= 46ms latency at 44.1kHz, which
+# is fine for short UI tones.
+_BUFFER = 2048
 _cache: dict[tuple, "pygame.mixer.Sound"] = {}
+
+
+def pre_init():
+    """Set the mixer parameters BEFORE pygame.init() auto-starts the mixer.
+
+    This must run before pygame.init(); otherwise the mixer comes up with a tiny
+    default buffer and the tones crackle. Safe to call even if audio is absent.
+    """
+    try:
+        pygame.mixer.pre_init(frequency=44100, size=-16, channels=2,
+                              buffer=_BUFFER)
+    except Exception:
+        pass
 
 
 def init():
     global _READY, _CHANNELS, _RATE
     try:
         if pygame.mixer.get_init() is None:
-            pygame.mixer.init(frequency=44100, size=-16, channels=1)
+            # pre_init() wasn't called (or failed); init directly with a buffer.
+            pygame.mixer.init(frequency=44100, size=-16, channels=2,
+                              buffer=_BUFFER)
         rate, _size, chans = pygame.mixer.get_init()
         _RATE, _CHANNELS = rate, chans
         _READY = True

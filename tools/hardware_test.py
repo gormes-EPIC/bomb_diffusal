@@ -276,6 +276,7 @@ def main(argv=None):
     ap.add_argument("--fullscreen", action="store_true")
     args = ap.parse_args(argv)
 
+    audio.pre_init()        # must precede pygame.init() so tones don't crackle
     pygame.init()
     audio.init()
     flags = pygame.FULLSCREEN if args.fullscreen else 0
