@@ -60,6 +60,33 @@ available it drives the physical LEDs/buttons/encoder; otherwise it falls back
 to the desktop mock. To launch automatically on boot, add a `.desktop` file to
 `~/.config/autostart/` running `python -m bomb --fullscreen`.
 
+## Hardware test / bring-up
+
+Before relying on the real bomb, run the bench-test tool to confirm every piece
+of Player 2's hardware works and to step through all ten puzzles **in order**
+(not the random six):
+
+```bash
+python tools/hardware_test.py            # auto-detect Pi GPIO, else --mock
+```
+
+It runs in two parts:
+
+1. **Self-test** - cycles each RGB LED through red/green/blue/white (so you can
+   catch swapped colour channels), lights each button as you press it, reads the
+   rotary encoder in both directions, and plays the four button tones.
+2. **Puzzles 1-10** - each puzzle in fixed order, with **no bomb timer** and no
+   way to lose. Use the on-screen keys to move around:
+
+   | Key | Action |
+   | --- | --- |
+   | `Space` / `N` | next step / puzzle |
+   | `B` / `P` | previous |
+   | `R` | restart the current step/puzzle |
+   | `S` | force-solve the current puzzle (to verify the solve path) |
+   | `T` | (audio step) replay the tones |
+   | `Esc` | quit |
+
 ## The ten puzzles
 
 | # | Module | Player 1 (screen) | Player 2 (hardware + manual) |
