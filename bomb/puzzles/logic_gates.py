@@ -7,6 +7,7 @@ clicks the input switches until the output lamp lights.
 
 from __future__ import annotations
 
+import itertools
 import random
 
 import pygame
@@ -21,8 +22,21 @@ class LogicGates(Puzzle):
     blurb = "Toggle the input switches until the output lamp lights."
 
     def start(self):
-        self.circuit = random.choice(CIRCUITS)
-        self.state = {name: 0 for name in self.circuit["inputs"]}
+        # Pick a circuit and a STARTING input combination whose output is 0, so
+        # the lamp begins OFF (unsolved) and the team actually has to solve it.
+        # Also guarantee the circuit is solvable (some combo gives output 1).
+        for _ in range(50):
+            self.circuit = random.choice(CIRCUITS)
+            names = list(self.circuit["inputs"])
+            combos = [dict(zip(names, c))
+                      for c in itertools.product([0, 1], repeat=len(names))]
+            off = [s for s in combos if not circuit_output(self.circuit, s)]
+            on = [s for s in combos if circuit_output(self.circuit, s)]
+            if off and on:
+                self.state = dict(random.choice(off))
+                break
+        else:                       # fallback: every switch off
+            self.state = {name: 0 for name in self.circuit["inputs"]}
         self._geom()
 
     def _geom(self):
