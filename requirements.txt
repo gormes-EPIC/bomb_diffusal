@@ -1,0 +1,11 @@
+# Bomb Diffusal dependencies
+#
+# Runs on any desktop (keyboard/mouse mock hardware) and on a Raspberry Pi
+# (real GPIO).  pygame is required everywhere; gpiozero + lgpio are only needed
+# on the Pi and are safe to omit on a desktop.
+
+pygame-ce>=2.5
+
+# --- Raspberry Pi only (uncomment on the Pi) ---
+# gpiozero>=2.0
+# lgpio>=0.2        # gpiozero's pin backend on Pi 5 / recent Raspberry Pi OS
