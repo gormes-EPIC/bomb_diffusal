@@ -74,10 +74,6 @@ class Simon(Puzzle):
                 self.wrong_flash = 0.5
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        ui.text(surface, "Watch LED A, translate with your card, then press buttons.",
-                area.centerx, area.y + 56, size=18, color=config.GREY,
-                align="midtop")
         # progress pips
         n = len(self.required)
         slot = 46
@@ -93,7 +89,3 @@ class Simon(Puzzle):
                 col = (60, 66, 76)
             import pygame
             pygame.draw.circle(surface, col, (x, y), 16)
-        ui.text(surface, f"{self.progress} / {n} correct presses",
-                area.centerx, y + 50, size=18,
-                color=config.DANGER if self.wrong_flash > 0 else config.GREY,
-                align="midtop")

@@ -51,10 +51,6 @@ class GlyphAddition(Puzzle):
             self.typed += event.unicode
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        ui.text(surface, "Read the equation to Player 2, then type the answer "
-                "and press ENTER.", area.centerx, area.y + 56, size=18,
-                color=config.GREY, align="midtop")
         # Lay the equation out, fitting it to the play area: glyph [op glyph]... = ?
         items = [("g", self.terms[0])]
         for op, n in zip(self.ops, self.terms[1:]):

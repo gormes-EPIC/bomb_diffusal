@@ -60,14 +60,12 @@ class Navigation(Puzzle):
             self.wrong = L
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        y = area.y + 60
+        # The directions ARE the puzzle, so they stay. No title, no how-to.
+        y = area.y + 50
         for line in self.lines:
             ui.text(surface, line, area.centerx, y, size=22, color=config.LIGHT,
                     align="midtop")
             y += 34
-        ui.text(surface, "Trace it on Player 2's map, then choose the landmark:",
-                area.centerx, y + 8, size=16, color=config.GREY, align="midtop")
         for L, rect in self.buttons.items():
             bad = (L == self.wrong)
             col = config.DANGER if bad else (46, 52, 62)

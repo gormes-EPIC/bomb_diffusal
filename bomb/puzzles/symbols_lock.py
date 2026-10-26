@@ -103,10 +103,6 @@ class SymbolsLock(Puzzle):
                         self.wrong = i
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        ui.text(surface, "Click the symbol that does NOT share the hidden trait.",
-                area.centerx, area.y + 56, size=18, color=config.GREY,
-                align="midtop")
         for i, r in enumerate(self.rects):
             border = config.DANGER if i == self.wrong else (60, 66, 76)
             pygame.draw.rect(surface, (26, 30, 38), r, border_radius=10)

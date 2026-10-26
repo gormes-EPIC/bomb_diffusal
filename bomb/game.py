@@ -151,14 +151,12 @@ class Game:
         self._pulse_prompt(s, "PRESS SPACE TO ARM THE BOMB", 560)
 
     def _draw_intro(self, s, area):
+        # No module name and no instructions -- figuring out the module is the
+        # puzzle. Just a neutral "ready" gate between modules.
         cx = config.play_width() // 2
-        ui.text(s, f"MODULE {self.index + 1} OF {self.needed}", cx, 200,
-                size=24, color=config.GREY, align="midtop")
-        ui.text(s, self.module.name, cx, 250, size=60, color=config.ACCENT,
-                align="midtop", bold=True)
-        ui.text(s, self.module.blurb, cx, 340, size=24, color=config.LIGHT,
-                align="midtop", max_width=760)
-        self._pulse_prompt(s, "PRESS SPACE WHEN READY", 520)
+        ui.text(s, f"MODULE {self.index + 1} OF {self.needed}", cx, 250,
+                size=34, color=config.LIGHT, align="midtop", bold=True)
+        self._pulse_prompt(s, "PRESS SPACE WHEN READY", 350)
 
     def _draw_banner(self, s, msg, color):
         cx = config.play_width() // 2

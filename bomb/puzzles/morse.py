@@ -75,10 +75,6 @@ class Morse(Puzzle):
                 audio.play(620, 90, 0.25)
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        ui.text(surface, "Player 2 reads the LED-A blinks. Type the word:",
-                area.centerx, area.y + 56, size=18, color=config.GREY,
-                align="midtop")
         # letter blanks
         n = len(self.word)
         slot = 60

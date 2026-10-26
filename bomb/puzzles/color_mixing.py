@@ -74,10 +74,6 @@ class ColorMixing(Puzzle):
             self.match_time = 0.0
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        ui.text(surface, "Match LED B to LED A. The three sliders are unlabeled.",
-                area.centerx, area.y + 56, size=18, color=config.GREY,
-                align="midtop")
         for i, x in enumerate(self.slider_x):
             pygame.draw.rect(surface, (40, 46, 56),
                              (x - 5, self.track_top, 10, self.track_h),
@@ -91,8 +87,3 @@ class ColorMixing(Puzzle):
                              2, border_radius=6)
             ui.text(surface, "?", x, self.track_top - 24, size=24,
                     color=config.GREY, align="midbottom", bold=True)
-        # The LEDs live on Player 2's station (hardware panel) -- Player 1
-        # cannot see them and must be guided.
-        ui.text(surface, "Player 2 watches LED A (target) and LED B (yours).",
-                area.centerx, self.track_top + self.track_h + 40, size=16,
-                color=config.GREY, align="midtop")

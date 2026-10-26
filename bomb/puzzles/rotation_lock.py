@@ -65,20 +65,16 @@ class RotationLock(Puzzle):
             self._new_round()
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        ui.text(surface, f"ROUND {min(self.round + 1, ROUNDS)} / {ROUNDS}  -  "
-                "Player 2 spins the encoder to match the symbols.",
-                area.centerx, area.y + 56, size=18, color=config.GREY,
-                align="midtop")
+        ui.text(surface, f"ROUND {min(self.round + 1, ROUNDS)} / {ROUNDS}",
+                area.centerx, area.y + 30, size=22, color=config.LIGHT,
+                align="midtop", bold=True)
         matched = _ang_diff(self.cur_angle, self.ref_angle) <= TOL
         gs = 160
         cy = area.centery
-        ui.text(surface, "REFERENCE", area.centerx - 160, cy - 130, size=15,
-                color=config.GREY, align="center")
+        # Left = fixed reference, right = the one that moves. No labels; the
+        # moving/colour-changing symbol is for them to work out.
         blit_glyph(surface, self.glyph, (area.centerx - 160, cy), gs,
                    config.LIGHT, rotation=self.ref_angle)
-        ui.text(surface, "YOURS", area.centerx + 160, cy - 130, size=15,
-                color=config.GREY, align="center")
         blit_glyph(surface, self.glyph, (area.centerx + 160, cy), gs,
                    config.OK if matched else config.WARN, rotation=self.cur_angle)
 

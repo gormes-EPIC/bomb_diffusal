@@ -81,10 +81,6 @@ class Rhythm(Puzzle):
                 self.wrong = 0.5
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        ui.text(surface, "Player 1 reads these names aloud as Player 2 presses:",
-                area.centerx, area.y + 56, size=18, color=config.GREY,
-                align="midtop")
         # note-name slots
         n = len(self.seq)
         slot = 110
@@ -109,6 +105,6 @@ class Rhythm(Puzzle):
 
         col = config.ACCENT if not self.playing else config.WARN
         pygame.draw.rect(surface, col, self.play_btn, border_radius=10)
-        ui.text(surface, "PLAYING..." if self.playing else "PLAY RHYTHM  (L)",
+        ui.text(surface, "PLAYING..." if self.playing else "PLAY",
                 self.play_btn.centerx, self.play_btn.centery, size=20,
                 color=config.BLACK, align="center", bold=True)

@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import pygame
 
-from .. import config, ui
-
 
 class Puzzle:
     name = "Module"
@@ -33,9 +31,8 @@ class Puzzle:
         """dt = seconds since last frame; inputs = result of hw.poll()."""
 
     def draw(self, surface, area: pygame.Rect):
-        """Draw into ``area`` (the play field, below the timer bar)."""
+        """Draw into ``area`` (the play field, below the timer bar).
 
-    # --- helpers -----------------------------------------------------------
-    def title(self, surface, area):
-        ui.text(surface, self.name, area.centerx, area.y + 16,
-                size=30, color=config.ACCENT, align="midtop", bold=True)
+        Note: puzzles deliberately do NOT draw their name or any how-to text --
+        working out what each module is and how it works is part of the game.
+        """

@@ -49,11 +49,9 @@ class LogicGates(Puzzle):
             self.solved = True
 
     def draw(self, surface, area):
-        self.title(surface, area)
-        ui.text(surface, f"CIRCUIT {self.circuit['id']}  -  click the input "
-                "switches. Player 2's manual names each gate.",
-                area.centerx, area.y + 54, size=17, color=config.GREY,
-                align="midtop")
+        # Keep only the circuit name so Player 2 can find it in the manual.
+        ui.text(surface, f"CIRCUIT {self.circuit['id']}", area.centerx,
+                area.y + 30, size=22, color=config.LIGHT, align="midtop", bold=True)
         vals = eval_circuit(self.circuit, self.state)
 
         def wire(a, b, on):

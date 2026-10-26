@@ -8,8 +8,8 @@ one place is what lets the printed manuals and the running program stay in sync.
 # --------------------------------------------------------------------------- #
 # Display
 # --------------------------------------------------------------------------- #
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 720
+SCREEN_WIDTH = 1920
+SCREEN_HEIGHT = 1080
 FPS = 60
 FULLSCREEN = False          # set True for the kiosk build on the Pi
 TITLE = "BOMB DIFFUSAL"
