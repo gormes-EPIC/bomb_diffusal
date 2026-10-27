@@ -29,7 +29,7 @@ os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 import pygame  # noqa: E402
 
 from bomb import puzzle_data as pd  # noqa: E402
-from bomb.glyphs import GLYPHS, TRAITS, render_glyph  # noqa: E402
+from bomb.glyphs import GLYPHS, render_glyph  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
@@ -298,18 +298,6 @@ def write_player2(glyph_imgs, maze_imgs, nav_img, circuit_imgs):
     w("Use the ruler against the scale bar for distances, and the protractor for "
       "bearings (degrees clockwise from North).\n")
     w(f"\n![Trail map]({nav_img})\n")
-
-    # ---- Symbol traits ----
-    w("\n## Symbol Traits\n")
-    w("Four of the five symbols share one of these; one does not:\n")
-    for key, label in TRAITS.items():
-        w(f"- {label}")
-    w("\n| Symbol | Name | Strokes | Curved | Symmetrical | Closed |")
-    w("| :---: | --- | :---: | :---: | :---: | :---: |")
-    for name, g in GLYPHS.items():
-        w(f"| ![]({glyph_imgs[name]}) | {name.capitalize()} | {g.strokes} | "
-          f"{'yes' if g.curved else 'no'} | {'yes' if g.symmetrical else 'no'} | "
-          f"{'yes' if g.closed else 'no'} |")
 
     # ---- Symbol values ----
     w("\n## Symbol Values\n")

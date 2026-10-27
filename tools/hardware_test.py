@@ -2,7 +2,7 @@
 """Hardware test / bring-up tool for the Bomb Diffusal build.
 
 Run it on the Raspberry Pi (or any desktop, with --mock) to make sure every
-piece of Player 2's hardware works, then walk through all ten puzzles IN ORDER
+piece of Player 2's hardware works, then walk through all nine puzzles IN ORDER
 so you can confirm each one reacts correctly on real hardware.
 
     python tools/hardware_test.py            # auto-detect Pi GPIO, else mock
@@ -14,7 +14,7 @@ It has two parts:
      confirm colour wiring), lights each button as you press it, reads the
      rotary encoder in both directions, and plays the four button tones.
 
-  2. PUZZLES    - runs puzzles 1..10 in fixed order (not the random 6 the real
+  2. PUZZLES    - runs puzzles 1..9 in fixed order (not the random 6 the real
      game picks).  There is NO bomb timer here and you cannot "lose" - it is a
      bench test.
 

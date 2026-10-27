@@ -1,4 +1,4 @@
-"""Registry of all ten puzzle modules."""
+"""Registry of all nine puzzle modules."""
 
 from .prime_ops import PrimeOps
 from .morse import Morse
@@ -7,7 +7,6 @@ from .maze import Maze
 from .navigation import Navigation
 from .logic_gates import LogicGates
 from .rhythm import Rhythm
-from .symbols_lock import SymbolsLock
 from .glyph_addition import GlyphAddition
 from .rotation_lock import RotationLock
 
@@ -20,7 +19,6 @@ ALL_PUZZLES = [
     Navigation,
     LogicGates,
     Rhythm,
-    SymbolsLock,
     GlyphAddition,
     RotationLock,
 ]

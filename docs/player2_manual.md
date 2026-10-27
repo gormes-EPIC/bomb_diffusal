@@ -26,28 +26,6 @@ Use the ruler against the scale bar for distances, and the protractor for bearin
 ![Trail map](assets/nav_map.png)
 
 
-## Symbol Traits
-
-Four of the five symbols share one of these; one does not:
-
-- Same number of strokes
-- All curved (no straight edges)
-- All symmetrical (have a mirror line)
-- All closed shapes (fully enclose an area)
-
-| Symbol | Name | Strokes | Curved | Symmetrical | Closed |
-| :---: | --- | :---: | :---: | :---: | :---: |
-| ![](assets/sym_spiral.png) | Spiral | 1 | yes | no | no |
-| ![](assets/sym_circle.png) | Circle | 1 | yes | yes | yes |
-| ![](assets/sym_crescent.png) | Crescent | 2 | yes | no | yes |
-| ![](assets/sym_square.png) | Square | 4 | no | yes | yes |
-| ![](assets/sym_triangle.png) | Triangle | 3 | no | yes | yes |
-| ![](assets/sym_pentagon.png) | Pentagon | 5 | no | yes | yes |
-| ![](assets/sym_star.png) | Star | 5 | no | yes | yes |
-| ![](assets/sym_heart.png) | Heart | 3 | yes | yes | yes |
-| ![](assets/sym_arrow.png) | Arrow | 3 | no | yes | no |
-| ![](assets/sym_plus.png) | Plus | 3 | no | yes | no |
-
 ## Symbol Values
 
 
@@ -57,7 +35,7 @@ Four of the five symbols share one of these; one does not:
 | ![](assets/sym_crescent.png) | Crescent | 3 |  | ![](assets/sym_square.png) | Square | 4 |
 | ![](assets/sym_triangle.png) | Triangle | 5 |  | ![](assets/sym_pentagon.png) | Pentagon | 6 |
 | ![](assets/sym_star.png) | Star | 7 |  | ![](assets/sym_heart.png) | Heart | 8 |
-| ![](assets/sym_arrow.png) | Arrow | 9 |  | ![](assets/sym_plus.png) | Plus | 10 |
+| ![](assets/sym_arrow.png) | Arrow | 9 |  | ![](assets/sym_cross.png) | Cross | 10 |
 
 ## Circuits
 

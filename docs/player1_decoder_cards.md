@@ -40,4 +40,4 @@ For each flashed colour, press the button(s) shown, in order.
 | ![](assets/sym_crescent.png) | Crescent |  | ![](assets/sym_square.png) | Square |
 | ![](assets/sym_triangle.png) | Triangle |  | ![](assets/sym_pentagon.png) | Pentagon |
 | ![](assets/sym_star.png) | Star |  | ![](assets/sym_heart.png) | Heart |
-| ![](assets/sym_arrow.png) | Arrow |  | ![](assets/sym_plus.png) | Plus |
+| ![](assets/sym_arrow.png) | Arrow |  | ![](assets/sym_cross.png) | Cross |

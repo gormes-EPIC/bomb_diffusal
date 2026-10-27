@@ -8,7 +8,7 @@ other holds the manual and the hardware. Neither can win alone.
 - **Player 2** - two RGB LEDs, four coloured buttons, a rotary encoder, and the
   **Field Manual**.
 
-Each game randomly picks **6 of the 10 puzzles** and presents them in a random
+Each game randomly picks **6 of the 9 puzzles** and presents them in a random
 order behind a **15-minute** countdown shown at the top of the screen at all
 times. Disarm all six and the team wins; let the timer hit zero -- or make
 **5 mistakes** -- and it's boom.
@@ -76,7 +76,7 @@ to the desktop mock. To launch automatically on boot, add a `.desktop` file to
 ## Hardware test / bring-up
 
 Before relying on the real bomb, run the bench-test tool to confirm every piece
-of Player 2's hardware works and to step through all ten puzzles **in order**
+of Player 2's hardware works and to step through all nine puzzles **in order**
 (not the random six):
 
 ```bash
@@ -88,7 +88,7 @@ It runs in two parts:
 1. **Self-test** - cycles each RGB LED through red/green/blue/white (so you can
    catch swapped colour channels), lights each button as you press it, reads the
    rotary encoder in both directions, and plays the four button tones.
-2. **Puzzles 1-10** - each puzzle in fixed order, with **no bomb timer** and no
+2. **Puzzles 1-9** - each puzzle in fixed order, with **no bomb timer** and no
    way to lose. Use the on-screen keys to move around:
 
    | Key | Action |
@@ -100,7 +100,7 @@ It runs in two parts:
    | `T` | (audio step) replay the tones |
    | `Esc` | quit |
 
-## The ten puzzles
+## The nine puzzles
 
 | # | Module | Player 1 (screen) | Player 2 (hardware + manual) |
 | --- | --- | --- | --- |
@@ -111,9 +111,8 @@ It runs in two parts:
 | 5 | Navigation | reads the directions, picks a landmark | traces the route on the map |
 | 6 | Turn on the LED | clicks input switches (blank gates) | circuit diagram names each gate |
 | 7 | Rhythm Lock | sees the note names appear | replays the rhythm on the buttons |
-| 8 | Symbols Lock | clicks the odd-one-out symbol | trait table in the manual |
-| 9 | Glyph Addition | reads the symbol equation, types total | symbol-value table in the manual |
-| 10 | Rotation Lock | sees the two symbols | spins the encoder to match them |
+| 8 | Glyph Addition | reads the symbol equation, types total | symbol-value table in the manual |
+| 9 | Rotation Lock | sees the two symbols | spins the encoder to match them |
 
 ## Keeping the manuals in sync
 
@@ -135,7 +134,7 @@ bomb/                     the game (run with  python -m bomb)
   __main__.py             entry point / main loop
   config.py               screen, timing, colours, GPIO pin map
   puzzle_data.py          morse, simon, mazes, nav routes, circuits, rhythms
-  glyphs.py               vector-drawn symbols + their traits/values
+  glyphs.py               vector-drawn symbols + their values
   hardware.py             GPIO (gpiozero) or desktop keyboard/mouse mock
   audio.py                tone synthesis (no numpy)
   ui.py                   fonts, timer bar, LED drawing, Player-2 panel
@@ -158,5 +157,4 @@ The game runs headless for CI/smoke tests with SDL's dummy drivers:
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python -m bomb --mock   # (Ctrl-C to stop)
 ```
 
-All ten puzzles, the symbol-puzzle generator, and the full title-to-win flow
-have been verified this way.
+All nine puzzles and the full title-to-win flow have been verified this way.

@@ -5,9 +5,9 @@ identical in the running game and in the PNGs baked into Player 2's manual, and
 so that its *traits* (stroke count, curved/straight, symmetrical, closed) are a
 property we control exactly rather than guess from a font character.
 
-A single catalogue, ``GLYPHS``, is the one source of truth.  Puzzle 8 (Symbols
-Lock) and Puzzle 9 (Glyph Addition) read it, and ``tools/generate_manuals.py``
-reads it to build the manual's symbol tables and PNGs.
+A single catalogue, ``GLYPHS``, is the one source of truth.  Glyph Addition
+reads it, and ``tools/generate_manuals.py`` reads it to build the manual's
+symbol tables and PNGs.
 """
 
 from __future__ import annotations
@@ -75,7 +75,7 @@ def draw_star(surf, S, color, w):
     _poly(pts, surf, color, w)
 
 
-def draw_plus(surf, S, color, w):
+def draw_cross(surf, S, color, w):
     cx, cy = S / 2, S / 2
     a = S * 0.40       # arm half-length
     t = S * 0.13       # arm half-thickness
@@ -148,21 +148,13 @@ GLYPHS: dict[str, Glyph] = {
         Glyph("star",     draw_star,     5, False, True,  True,  7),
         Glyph("heart",    draw_heart,    3, True,  True,  True,  8),
         Glyph("arrow",    draw_arrow,    3, False, True,  False, 9),
-        Glyph("plus",     draw_plus,     3, False, True,  False, 10),
+        Glyph("cross",    draw_cross,    3, False, True,  False, 10),
     ]
 }
 
-# Glyphs with no rotational symmetry -- used by Puzzle 10 (Rotation Lock) so a
-# rotation is actually visible.
+# Glyphs with no rotational symmetry -- used by Rotation Lock so a rotation is
+# actually visible.
 ROTATION_GLYPHS = ["arrow", "spiral", "crescent"]
-
-# The four traits Puzzle 8 can key on, with human labels for the manual.
-TRAITS = {
-    "strokes": "Same number of strokes",
-    "curved": "All curved (no straight edges)",
-    "symmetrical": "All symmetrical (have a mirror line)",
-    "closed": "All closed shapes (fully enclose an area)",
-}
 
 
 def render_glyph(name: str, size: int, color, rotation: float = 0.0,
