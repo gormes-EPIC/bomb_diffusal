@@ -21,7 +21,8 @@ WORD_GAP = 9        # * UNIT -- gap before the word repeats
 READY_ON = 2        # * UNIT -- length of each red "get ready" flash
 READY_GAP = 1       # * UNIT -- gap between the red flashes
 
-BLINK_COLOR = (235, 235, 245)   # white: the actual Morse code
+DOT_COLOR = (60, 220, 90)       # green: a dot (.)
+DASH_COLOR = (70, 130, 240)     # blue: a dash (-)
 READY_COLOR = (220, 60, 60)     # red: "a new word is starting"
 
 
@@ -40,7 +41,10 @@ def _timeline(word):
     for letter in word:
         code = MORSE[letter]
         for sym in code:
-            tl.append(((1 if sym == "." else 4) * UNIT, BLINK_COLOR))
+            if sym == ".":
+                tl.append((1 * UNIT, DOT_COLOR))
+            else:
+                tl.append((4 * UNIT, DASH_COLOR))
             tl.append((INTRA_GAP * UNIT, None))   # intra-letter gap
         tl[-1] = (LETTER_GAP * UNIT, None)        # letter gap (overwrites last)
     tl[-1] = (WORD_GAP * UNIT, None)              # word gap before repeat
