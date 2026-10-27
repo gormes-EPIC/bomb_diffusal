@@ -37,7 +37,9 @@ class Navigation(Puzzle):
         rows = (len(self.letters) + per_row - 1) // per_row
         total_w = per_row * bw + (per_row - 1) * gap
         sx = a.centerx - total_w // 2
-        sy = a.bottom - rows * (bh + gap) - 20
+        # Keep a full button-row of clearance below the grid so the bottom row
+        # and its landmark labels are never cut off at the edge of the screen.
+        sy = a.bottom - rows * (bh + gap) - (bh + gap + 40)
         for i, L in enumerate(self.letters):
             r, c = divmod(i, per_row)
             self.buttons[L] = pygame.Rect(sx + c * (bw + gap),
@@ -77,6 +79,7 @@ class Navigation(Puzzle):
             ui.text(surface, NAV_NAMES[L], rect.centerx, rect.bottom - 6, size=12,
                     color=config.GREY, align="midbottom")
         if self.wrong:
+            grid_bottom = max(rect.bottom for rect in self.buttons.values())
             ui.text(surface, "Not there - re-check the bearings and distances.",
-                    area.centerx, area.bottom - 8, size=16, color=config.DANGER,
-                    align="midbottom")
+                    area.centerx, grid_bottom + 18, size=16, color=config.DANGER,
+                    align="midtop")
