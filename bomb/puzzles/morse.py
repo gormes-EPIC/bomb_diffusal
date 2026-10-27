@@ -15,19 +15,35 @@ from ..puzzle_data import MORSE, MORSE_WORDS
 from .base import Puzzle
 
 UNIT = 0.4          # seconds per Morse "dot" unit
-BLINK_COLOR = (235, 235, 245)
+INTRA_GAP = 1       # * UNIT -- gap between symbols within a letter
+LETTER_GAP = 6      # * UNIT -- gap between letters (long, so it's easy to read)
+WORD_GAP = 9        # * UNIT -- gap before the word repeats
+READY_ON = 2        # * UNIT -- length of each red "get ready" flash
+READY_GAP = 1       # * UNIT -- gap between the red flashes
+
+BLINK_COLOR = (235, 235, 245)   # white: the actual Morse code
+READY_COLOR = (220, 60, 60)     # red: "a new word is starting"
 
 
 def _timeline(word):
-    """List of (duration_s, on_bool) for one play-through of the word."""
+    """List of (duration_s, color_or_None) for one play-through of the word.
+
+    ``color`` is the LED colour while on, or ``None`` for an off (gap) beat.
+    """
     tl = []
-    for li, letter in enumerate(word):
+    # Two red flashes announce that the word is about to start (and repeat).
+    for _ in range(2):
+        tl.append((READY_ON * UNIT, READY_COLOR))
+        tl.append((READY_GAP * UNIT, None))
+    tl.append((LETTER_GAP * UNIT, None))          # beat before the code begins
+
+    for letter in word:
         code = MORSE[letter]
-        for si, sym in enumerate(code):
-            tl.append(((1 if sym == "." else 4) * UNIT, True))
-            tl.append((UNIT, False))              # intra-letter gap
-        tl[-1] = (3 * UNIT, False)                # letter gap
-    tl.append((7 * UNIT, False))                  # word gap before repeat
+        for sym in code:
+            tl.append(((1 if sym == "." else 4) * UNIT, BLINK_COLOR))
+            tl.append((INTRA_GAP * UNIT, None))   # intra-letter gap
+        tl[-1] = (LETTER_GAP * UNIT, None)        # letter gap (overwrites last)
+    tl[-1] = (WORD_GAP * UNIT, None)              # word gap before repeat
     return tl
 
 
@@ -44,8 +60,8 @@ class Morse(Puzzle):
         self.wrong = False
         self._set_led(self.timeline[0][1])
 
-    def _set_led(self, on):
-        self.hw.led_a.set_color(BLINK_COLOR if on else (0, 0, 0))
+    def _set_led(self, color):
+        self.hw.led_a.set_color(color if color else (0, 0, 0))
 
     def handle_event(self, event):
         if event.type != pygame.KEYDOWN:
@@ -65,13 +81,11 @@ class Morse(Puzzle):
 
     def update(self, dt, inputs):
         self.t += dt
-        dur, on = self.timeline[self.idx]
+        dur = self.timeline[self.idx][0]
         if self.t >= dur:
             self.t -= dur
-            was_on = on
             self.idx = (self.idx + 1) % len(self.timeline)
-            now_on = self.timeline[self.idx][1]
-            self._set_led(now_on)
+            self._set_led(self.timeline[self.idx][1])
 
     def draw(self, surface, area):
         # letter blanks
