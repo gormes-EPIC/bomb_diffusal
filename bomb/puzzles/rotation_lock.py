@@ -65,8 +65,10 @@ class RotationLock(Puzzle):
             self._new_round()
 
     def draw(self, surface, area):
+        ui.text(surface, "TURN ME", area.centerx, area.y + 20, size=40,
+                color=config.ACCENT, align="midtop", bold=True)
         ui.text(surface, f"ROUND {min(self.round + 1, ROUNDS)} / {ROUNDS}",
-                area.centerx, area.y + 30, size=22, color=config.LIGHT,
+                area.centerx, area.y + 70, size=22, color=config.LIGHT,
                 align="midtop", bold=True)
         matched = _ang_diff(self.cur_angle, self.ref_angle) <= TOL
         gs = 160
