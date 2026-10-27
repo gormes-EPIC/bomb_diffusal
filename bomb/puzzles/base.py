@@ -15,6 +15,19 @@ class Puzzle:
         self.hw = game.hw
         self.solved = False
 
+    # --- shared helpers ----------------------------------------------------
+    def strike(self):
+        """Register one incorrect input.
+
+        The game counts these across every module; ``config.MAX_MISTAKES`` of
+        them and the bomb explodes.  Harnesses without a mistake counter (the
+        hardware bench test) simply ignore it, so a wrong press is never fatal
+        there.
+        """
+        add = getattr(self.game, "add_mistake", None)
+        if callable(add):
+            add()
+
     # --- lifecycle ---------------------------------------------------------
     def start(self):
         """Called once when the module becomes active."""

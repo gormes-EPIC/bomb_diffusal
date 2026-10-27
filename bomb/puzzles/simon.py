@@ -72,6 +72,7 @@ class Simon(Puzzle):
             else:
                 self.progress = 0
                 self.wrong_flash = 0.5
+                self.strike()
 
     def draw(self, surface, area):
         # progress pips

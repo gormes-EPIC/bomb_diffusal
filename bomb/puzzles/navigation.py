@@ -56,8 +56,9 @@ class Navigation(Puzzle):
     def _choose(self, L):
         if L == self.answer:
             self.solved = True
-        else:
+        elif L != self.wrong:
             self.wrong = L
+            self.strike()
 
     def draw(self, surface, area):
         # The directions ARE the puzzle, so they stay. No title, no how-to.

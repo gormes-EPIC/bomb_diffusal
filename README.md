@@ -9,8 +9,9 @@ other holds the manual and the hardware. Neither can win alone.
   **Field Manual**.
 
 Each game randomly picks **6 of the 10 puzzles** and presents them in a random
-order behind a **30-minute** countdown shown at the top of the screen at all
-times. Disarm all six and the team wins; let the timer hit zero and it's boom.
+order behind a **15-minute** countdown shown at the top of the screen at all
+times. Disarm all six and the team wins; let the timer hit zero -- or make
+**5 mistakes** -- and it's boom.
 
 This repository contains all three deliverables from the brief:
 
@@ -103,7 +104,7 @@ It runs in two parts:
 
 | # | Module | Player 1 (screen) | Player 2 (hardware + manual) |
 | --- | --- | --- | --- |
-| 1 | Color Mixing | three **unlabeled** sliders | sees LED A (target) + LED B (yours) |
+| 1 | Number Lock | reads out the per-button operations + target | presses the buttons to chain to the target |
 | 2 | Morse Code | types the decoded word (Morse card) | reads the LED-A blinks |
 | 3 | Simon with a Twist | decodes colours with the Simon card | presses the translated buttons |
 | 4 | Invisible Maze | arrow-keys a dot through hidden walls | reads the maze from the manual |

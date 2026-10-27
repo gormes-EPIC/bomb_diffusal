@@ -1,6 +1,6 @@
 """Registry of all ten puzzle modules."""
 
-from .color_mixing import ColorMixing
+from .prime_ops import PrimeOps
 from .morse import Morse
 from .simon import Simon
 from .maze import Maze
@@ -11,9 +11,9 @@ from .symbols_lock import SymbolsLock
 from .glyph_addition import GlyphAddition
 from .rotation_lock import RotationLock
 
-# Order here is just the catalogue order (Puzzle 1..10 from the spec).
+# Order here is just the catalogue order.
 ALL_PUZZLES = [
-    ColorMixing,
+    PrimeOps,
     Morse,
     Simon,
     Maze,

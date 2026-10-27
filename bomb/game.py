@@ -30,10 +30,12 @@ class Game:
         self.needed = n
         self.index = 0
         self.solved_count = 0
+        self.mistakes = 0
         self.remaining = config.TOTAL_TIME
         self.module = None
         self.flash_t = 0.0
         self.started = False
+        self.lose_reason = "The timer reached zero."
         self.state = TITLE
 
     def _enter_module(self, i):
@@ -81,7 +83,7 @@ class Game:
             self.remaining -= dt
             if self.remaining <= 0:
                 self.remaining = 0
-                self._fail()
+                self._fail("The timer reached zero.")
                 return
 
         if self.state == PLAYING:
@@ -100,10 +102,19 @@ class Game:
             if self.flash_t <= 0:
                 self._enter_module(self.index + 1)
 
-    def _fail(self):
+    def add_mistake(self):
+        """Called by a module on an incorrect input. Five of them -> boom."""
+        if self.state != PLAYING:
+            return
+        self.mistakes += 1
+        if self.mistakes >= config.MAX_MISTAKES:
+            self._fail("Too many mistakes - the bomb tripped.")
+
+    def _fail(self, reason="The timer reached zero."):
         if self.module:
             self.module.stop()
         self.hw.all_leds_off()
+        self.lose_reason = reason
         self.state = LOSE
 
     # -------------------------------------------------------------------- draw
@@ -126,12 +137,12 @@ class Game:
             self._draw_end(s, "BOMB DEFUSED", config.OK,
                            "You disarmed every module. The team wins!")
         elif self.state == LOSE:
-            self._draw_end(s, "BOOM", config.DANGER,
-                           "The timer reached zero.")
+            self._draw_end(s, "BOOM", config.DANGER, self.lose_reason)
 
         if self.started and self.state in (INTRO, PLAYING, SOLVED):
             ui.draw_timer_bar(s, self.remaining, config.TOTAL_TIME,
-                              self.solved_count, self.needed)
+                              self.solved_count, self.needed,
+                              self.mistakes, config.MAX_MISTAKES)
         ui.draw_hardware_panel(s, self.hw, self.encoder_pos)
 
     def _draw_title(self, s):
@@ -143,7 +154,7 @@ class Game:
         lines = [
             "Player 1 has the Screen, Mouse, Keyboard and the Decoder Cards.",
             "Player 2 has the LEDs, Buttons, Rotary Encoder and the Manual.",
-            "Six modules, 30 minutes. Talk to each other. Disarm them all.",
+            "Six modules, 15 minutes, 5 mistakes allowed. Disarm them all.",
         ]
         for i, ln in enumerate(lines):
             ui.text(s, ln, cx, 360 + i * 36, size=22, color=config.LIGHT,
@@ -174,6 +185,7 @@ class Game:
         ui.text(s, msg, cx, 220, size=96, color=color, align="midtop", bold=True)
         ui.text(s, sub, cx, 350, size=26, color=config.LIGHT, align="midtop")
         ui.text(s, f"Modules disarmed: {self.solved_count} / {self.needed}"
+                f"   -   Mistakes: {self.mistakes} / {config.MAX_MISTAKES}"
                 f"   -   Time left: {ui.format_time(self.remaining)}",
                 cx, 400, size=22, color=config.GREY, align="midtop")
         self._pulse_prompt(s, "PRESS SPACE TO PLAY AGAIN", 520)

@@ -209,7 +209,7 @@ class PuzzleStage:
         self.shim = shim
         self.cls = cls
         self.index = index
-        self.name = f"PUZZLE {index + 1}/10: {cls.name}"
+        self.name = f"PUZZLE {index + 1}/{len(ALL_PUZZLES)}: {cls.name}"
 
     def start(self):
         self.puzzle = self.cls(self.shim)

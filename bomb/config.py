@@ -29,8 +29,9 @@ def play_width():
 # --------------------------------------------------------------------------- #
 # Game rules
 # --------------------------------------------------------------------------- #
-TOTAL_TIME = 30 * 60        # 30 minute bomb timer, in seconds
+TOTAL_TIME = 15 * 60        # 15 minute bomb timer, in seconds
 PUZZLES_PER_GAME = 6        # choose 6 of the possible puzzles each game
+MAX_MISTAKES = 5            # incorrect inputs allowed before the bomb explodes
 
 # --------------------------------------------------------------------------- #
 # Colours (RGB tuples)

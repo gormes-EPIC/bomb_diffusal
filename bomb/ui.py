@@ -72,7 +72,8 @@ def format_time(seconds: float) -> str:
     return f"{seconds // 60:02d}:{seconds % 60:02d}"
 
 
-def draw_timer_bar(surf, remaining, total, solved, needed):
+def draw_timer_bar(surf, remaining, total, solved, needed,
+                   mistakes=0, max_mistakes=0):
     """Top-of-screen bomb timer, visible during every puzzle."""
     w = config.SCREEN_WIDTH
     pygame.draw.rect(surf, config.DARK, (0, 0, w, 64))
@@ -99,6 +100,22 @@ def draw_timer_bar(surf, remaining, total, solved, needed):
         c = config.OK if i < solved else (60, 66, 76)
         pygame.draw.rect(surf, c, (sx + i * (pip_w + 8), 34, pip_w, 14),
                          border_radius=4)
+
+    # mistake tally (right side): one X-pip per allowed mistake, lit when used
+    if max_mistakes:
+        text(surf, "MISTAKES", w - 24, 8, size=13, color=config.GREY,
+             align="topright")
+        dot_r = 8
+        gap = 24
+        span = (max_mistakes - 1) * gap
+        rx = w - 24 - span
+        for i in range(max_mistakes):
+            cx = rx + i * gap
+            used = i < mistakes
+            pygame.draw.circle(surf, config.DANGER if used else (60, 66, 76),
+                               (cx, 42), dot_r)
+            if used:
+                pygame.draw.circle(surf, config.WHITE, (cx, 42), dot_r, 1)
 
 
 def draw_hardware_panel(surf, hw, encoder_pos=0):

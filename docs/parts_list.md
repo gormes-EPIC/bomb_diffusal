@@ -71,7 +71,7 @@ These are the pins the program expects. They are defined once in
 - The KY-040 board already has pull-ups; a bare EC11 encoder needs them (the Pi's
   internal pull-ups are used in software, so a bare encoder works directly).
 - Keep LED-A and LED-B physically apart and labelled on the enclosure so Player 2
-  can tell "target" (A) from "team" (B) in the Color Mixing puzzle.
+  can always tell the two RGB LEDs apart.
 
 ## Build order (matches the activity brief)
 

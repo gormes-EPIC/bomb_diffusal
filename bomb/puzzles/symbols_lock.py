@@ -99,8 +99,9 @@ class SymbolsLock(Puzzle):
                 if r.collidepoint(event.pos):
                     if self.symbols[i] == self.odd:
                         self.solved = True
-                    else:
+                    elif i != self.wrong:
                         self.wrong = i
+                        self.strike()
 
     def draw(self, surface, area):
         for i, r in enumerate(self.rects):

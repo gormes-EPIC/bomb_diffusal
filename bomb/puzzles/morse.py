@@ -10,11 +10,11 @@ import random
 
 import pygame
 
-from .. import audio, config, ui
+from .. import config, ui
 from ..puzzle_data import MORSE, MORSE_WORDS
 from .base import Puzzle
 
-UNIT = 0.25         # seconds per Morse "dot" unit
+UNIT = 0.4          # seconds per Morse "dot" unit
 BLINK_COLOR = (235, 235, 245)
 
 
@@ -24,7 +24,7 @@ def _timeline(word):
     for li, letter in enumerate(word):
         code = MORSE[letter]
         for si, sym in enumerate(code):
-            tl.append(((1 if sym == "." else 3) * UNIT, True))
+            tl.append(((1 if sym == "." else 4) * UNIT, True))
             tl.append((UNIT, False))              # intra-letter gap
         tl[-1] = (3 * UNIT, False)                # letter gap
     tl.append((7 * UNIT, False))                  # word gap before repeat
@@ -61,6 +61,7 @@ class Morse(Puzzle):
                         self.solved = True
                     else:
                         self.wrong = True
+                        self.strike()
 
     def update(self, dt, inputs):
         self.t += dt
@@ -71,8 +72,6 @@ class Morse(Puzzle):
             self.idx = (self.idx + 1) % len(self.timeline)
             now_on = self.timeline[self.idx][1]
             self._set_led(now_on)
-            if now_on and not was_on:
-                audio.play(620, 90, 0.25)
 
     def draw(self, surface, area):
         # letter blanks

@@ -57,6 +57,7 @@ class Maze(Puzzle):
                 self.solved = True
         else:
             self.bump = 0.25     # flash to show a wall was hit
+            self.strike()
 
     def update(self, dt, inputs):
         if self.bump > 0:

@@ -79,6 +79,7 @@ class Rhythm(Puzzle):
                 self.progress = 0
                 self.pressed = []
                 self.wrong = 0.5
+                self.strike()
 
     def draw(self, surface, area):
         # note-name slots

@@ -45,8 +45,9 @@ class GlyphAddition(Puzzle):
         elif event.key in (pygame.K_RETURN, pygame.K_KP_ENTER):
             if self.typed and int(self.typed) == self.answer:
                 self.solved = True
-            else:
+            elif not self.wrong:
                 self.wrong = True
+                self.strike()
         elif event.unicode.isdigit():
             self.typed += event.unicode
 
