@@ -3,12 +3,12 @@
 The lock starts on a random prime between 25 and 100 and shows a target value.
 Each of the four buttons performs one of four operations -- x2, x3, -1, -3 --
 assigned at random, with the mapping shown on screen.  Player 1 reads the
-operations out; Player 2 presses buttons in an order that turns the starting
-value into the target.
+operations out; Player 2 presses buttons to turn the starting value into the
+target.
 
-Every press that does not move the value one step closer to the target along a
-shortest path counts as a mistake (and leaves the value unchanged), so the team
-has to plan the chain rather than mash buttons.
+Any path is fine and there is no penalty -- every press simply applies its
+operation, and reaching the target (by any route) disarms the module.  The
+target is generated so a solution always exists.
 """
 
 from __future__ import annotations
@@ -77,66 +77,50 @@ class PrimeOps(Puzzle):
 
     def start(self):
         self.hw.all_leds_off()
-        self.wrong = 0.0
         for _ in range(1000):
             start = random.choice(PRIMES)
             target = _walk_target(start, random.randint(MIN_STEPS, MAX_STEPS))
             if target == start or not (2 <= target <= MAXVAL):
                 continue
-            dist = _distance_map(target)
-            d0 = dist.get(start)
+            # Only used here to keep the target a non-trivial distance away.
+            d0 = _distance_map(target).get(start)
             if d0 is not None and MIN_STEPS <= d0 <= MAX_STEPS:
                 break
         else:                                   # pathological fallback
             start = random.choice(PRIMES)
             target = start - 1
-            dist = _distance_map(target)
 
         self.begin = start
         self.target = target
         self.value = start
-        self.dist = dist
         # Randomly assign the four operations to the four buttons.
         self.mapping = dict(zip(config.BTN_ORDER, random.sample(OPS, len(OPS))))
 
     def update(self, dt, inputs):
-        if self.wrong > 0:
-            self.wrong = max(0.0, self.wrong - dt)
-
         for c in inputs.button_down:
-            label, fn = self.mapping[c]
+            _, fn = self.mapping[c]
             cand = fn(self.value)
-            if self.dist.get(cand) == self.dist[self.value] - 1:
-                self.value = cand
-                audio.play(BUTTON_TONE[c], 120, 0.3)
-                if self.value == self.target:
-                    self.solved = True
-            else:
-                self.wrong = 0.5
-                audio.play(150, 160, 0.3)       # low error buzz
-                self.strike()
+            if cand < 1:                        # keep the lock on a positive
+                continue                        # number; press just has no effect
+            self.value = cand
+            audio.play(BUTTON_TONE[c], 120, 0.3)
+            if self.value == self.target:
+                self.solved = True
 
     def draw(self, surface, area):
         cx = area.centerx
-        wrong = self.wrong > 0
         reached = self.value == self.target
 
         ui.text(surface, f"START  {self.begin}", cx, area.y + 40, size=24,
                 color=config.GREY, align="midtop")
 
-        val_col = config.DANGER if wrong else (config.OK if reached
-                                               else config.WHITE)
+        val_col = config.OK if reached else config.WHITE
         ui.text(surface, str(self.value), cx, area.centery - 70, size=120,
                 color=val_col, align="center", bold=True)
 
         ui.text(surface, f"TARGET  {self.target}", cx, area.centery + 20,
                 size=40, color=config.OK if reached else config.ACCENT,
                 align="midtop", bold=True)
-
-        if wrong:
-            ui.text(surface, "Wrong move - that press doesn't lead to the target.",
-                    cx, area.centery + 76, size=18, color=config.DANGER,
-                    align="midtop")
 
         self._draw_ops(surface, area)
 
