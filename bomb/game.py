@@ -9,6 +9,7 @@ import pygame
 
 from . import config, ui
 from .puzzles import ALL_PUZZLES
+from .qte import QuickTimeEvent
 
 TITLE, INTRO, PLAYING, SOLVED, WIN, LOSE = range(6)
 SOLVED_FLASH_TIME = 1.4
@@ -36,6 +37,7 @@ class Game:
         self.flash_t = 0.0
         self.started = False
         self.lose_reason = "The timer reached zero."
+        self.qte = QuickTimeEvent()
         self.state = TITLE
 
     def _enter_module(self, i):
@@ -64,7 +66,8 @@ class Game:
             if self._is_go(event):
                 self._start_playing()
         elif self.state == PLAYING:
-            self.module.handle_event(event)
+            if not self.qte.active:     # QTE owns input while it is on screen
+                self.module.handle_event(event)
         elif self.state in (WIN, LOSE):
             if self._is_go(event):
                 self._reset()
@@ -87,6 +90,12 @@ class Game:
                 return
 
         if self.state == PLAYING:
+            # A quick-time event, when firing, takes over the screen and the
+            # button input, and freezes the puzzle for its short duration.
+            was_active = self.qte.active
+            self.qte.update(dt, inputs, self)
+            if self.qte.active or was_active:
+                return
             self.module.update(dt, inputs)
             if self.module.solved:
                 self.module.stop()
@@ -144,6 +153,8 @@ class Game:
                               self.solved_count, self.needed,
                               self.mistakes, config.MAX_MISTAKES)
         ui.draw_hardware_panel(s, self.hw, self.encoder_pos)
+        # A firing quick-time event covers everything with a full-screen colour.
+        self.qte.draw(s)
 
     def _draw_title(self, s):
         cx = config.play_width() // 2
