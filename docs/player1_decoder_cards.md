@@ -19,25 +19,12 @@
 | **V** | `...-` | **W** | `.--` | **X** | `-..-` |
 | **Y** | `-.--` | **Z** | `--..` |  |  |
 
-## Flashed Colour → Buttons
-
-For each flashed colour, press the button(s) shown, in order.
+## Think Fast!
 
 
-| Colour flashed | Press |
+| Color | Press |
 | --- | --- |
 | Red | Blue |
 | Yellow | Green + Green |
 | Green | Red |
 | Blue | Yellow + Yellow |
-
-## Symbol Names
-
-
-| Symbol | Name | | Symbol | Name |
-| :---: | --- | --- | :---: | --- |
-| ![](assets/sym_spiral.png) | Spiral |  | ![](assets/sym_circle.png) | Circle |
-| ![](assets/sym_crescent.png) | Crescent |  | ![](assets/sym_square.png) | Square |
-| ![](assets/sym_triangle.png) | Triangle |  | ![](assets/sym_pentagon.png) | Pentagon |
-| ![](assets/sym_star.png) | Star |  | ![](assets/sym_heart.png) | Heart |
-| ![](assets/sym_arrow.png) | Arrow |  | ![](assets/sym_cross.png) | Cross |

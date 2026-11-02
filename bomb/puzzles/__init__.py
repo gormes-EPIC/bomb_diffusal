@@ -16,6 +16,7 @@ from .glyph_addition import GlyphAddition
 from .combination_lock import CombinationLock
 from .scrambler import Scrambler
 from .check_please import CheckPlease
+from .secret_sketch import SecretSketch
 
 # Order here is just the catalogue order.
 ALL_PUZZLES = [
@@ -29,4 +30,5 @@ ALL_PUZZLES = [
     CombinationLock,
     Scrambler,
     CheckPlease,
+    SecretSketch,
 ]

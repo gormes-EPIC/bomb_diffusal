@@ -3,7 +3,7 @@
 
 # Player 2
 
-> Keep this hidden from Player 1.
+You should also have paper/pencil, and a ruler.
 
 
 ## Mazes
@@ -39,8 +39,6 @@ Use the ruler against the scale bar for distances, and the protractor for bearin
 
 ## Junction Boxes
 
-Each box joins its numbered **left** ports to its **right** ports. Trace a wire to a box on screen, read the port number it meets, and read off the port it leaves by. (→ N means that left port exits at right port N.)
-
 
 ![Box I](assets/scramble_box_I.png)
 
@@ -52,3 +50,11 @@ Each box joins its numbered **left** ports to its **right** ports. Trace a wire 
 
 
 ![Box IV](assets/scramble_box_IV.png)
+
+
+## Coordinate Grid
+
+Plot each segment Player 1 reads as a point `(x, y)` joined to the next, then read off the picture they draw. (x across, y up.)
+
+
+![Coordinate grid](assets/sketch_grid.png)
