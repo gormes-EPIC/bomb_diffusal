@@ -21,33 +21,36 @@ WORD_GAP = 9        # * UNIT -- gap before the word repeats
 READY_ON = 2        # * UNIT -- length of each red "get ready" flash
 READY_GAP = 1       # * UNIT -- gap between the red flashes
 
-DOT_COLOR = (60, 220, 90)       # green: a dot (.)
-DASH_COLOR = (70, 130, 240)     # blue: a dash (-)
+DOT_COLOR = (70, 130, 240)      # blue: a dot (.) -- short blink
+DASH_COLOR = (70, 130, 240)     # blue: a dash (-) -- long blink
 READY_COLOR = (220, 60, 60)     # red: "a new word is starting"
+
+COUNTDOWN = (3, 2, 1)           # shown on screen while the red flashes
 
 
 def _timeline(word):
-    """List of (duration_s, color_or_None) for one play-through of the word.
+    """List of (duration_s, color_or_None, count_or_None) for one play-through.
 
     ``color`` is the LED colour while on, or ``None`` for an off (gap) beat.
+    ``count`` is the 3/2/1 digit to show on screen during a red "ready" flash.
     """
     tl = []
-    # Two red flashes announce that the word is about to start (and repeat).
-    for _ in range(2):
-        tl.append((READY_ON * UNIT, READY_COLOR))
-        tl.append((READY_GAP * UNIT, None))
-    tl.append((LETTER_GAP * UNIT, None))          # beat before the code begins
+    # Three red flashes count 3-2-1 before the word starts (and repeats).
+    for c in COUNTDOWN:
+        tl.append((READY_ON * UNIT, READY_COLOR, c))
+        tl.append((READY_GAP * UNIT, None, None))
+    tl.append((LETTER_GAP * UNIT, None, None))    # beat before the code begins
 
     for letter in word:
         code = MORSE[letter]
         for sym in code:
             if sym == ".":
-                tl.append((1 * UNIT, DOT_COLOR))
+                tl.append((1 * UNIT, DOT_COLOR, None))
             else:
-                tl.append((4 * UNIT, DASH_COLOR))
-            tl.append((INTRA_GAP * UNIT, None))   # intra-letter gap
-        tl[-1] = (LETTER_GAP * UNIT, None)        # letter gap (overwrites last)
-    tl[-1] = (WORD_GAP * UNIT, None)              # word gap before repeat
+                tl.append((4 * UNIT, DASH_COLOR, None))
+            tl.append((INTRA_GAP * UNIT, None, None))   # intra-letter gap
+        tl[-1] = (LETTER_GAP * UNIT, None, None)  # letter gap (overwrites last)
+    tl[-1] = (WORD_GAP * UNIT, None, None)        # word gap before repeat
     return tl
 
 
@@ -92,6 +95,12 @@ class Morse(Puzzle):
             self._set_led(self.timeline[self.idx][1])
 
     def draw(self, surface, area):
+        # 3-2-1 countdown shown while the red "get ready" flash is on.
+        count = self.timeline[self.idx][2]
+        if count is not None:
+            ui.text(surface, str(count), area.centerx, area.centery - 150,
+                    size=130, color=READY_COLOR, align="center", bold=True)
+
         # letter blanks
         n = len(self.word)
         slot = 60

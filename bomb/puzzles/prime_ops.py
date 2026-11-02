@@ -2,9 +2,9 @@
 
 The lock starts on a random prime between 25 and 100 and shows a target value.
 Each of the four buttons performs one of four operations -- x2, x3, -1, -3 --
-assigned at random, with the mapping shown on screen.  Player 1 reads the
-operations out; Player 2 presses buttons to turn the starting value into the
-target.
+assigned at random.  The operations are NOT shown: the team works out what each
+coloured button does by pressing it and watching the value change, then chains
+presses to turn the starting value into the target.
 
 Any path is fine and there is no penalty -- every press simply applies its
 operation, and reaching the target (by any route) disarms the module.  The
@@ -33,7 +33,6 @@ OPS = [
     ("-1", lambda v: v - 1),
     ("-3", lambda v: v - 3),
 ]
-_PRETTY = {"x2": "×2", "x3": "×3", "-1": "−1", "-3": "−3"}
 
 CAP = 3000          # ceiling for the reachability search (shortest paths stay well below)
 MAXVAL = 999        # keep generated targets to three digits
@@ -131,13 +130,13 @@ class PrimeOps(Puzzle):
         sx = area.centerx - total // 2
         y = area.bottom - chh - 40
         for i, c in enumerate(config.BTN_ORDER):
-            label, _ = self.mapping[c]
             rect = pygame.Rect(sx + i * (cw + gap), y, cw, chh)
             col = config.BTN_COLORS[c]
             pygame.draw.rect(surface, tuple(int(v * 0.30) for v in col), rect,
                              border_radius=10)
             pygame.draw.rect(surface, col, rect, 3, border_radius=10)
-            ui.text(surface, c.upper(), rect.centerx, rect.y + 14, size=18,
-                    color=col, align="midtop", bold=True)
-            ui.text(surface, _PRETTY[label], rect.centerx, rect.centery + 16,
-                    size=44, color=config.WHITE, align="center", bold=True)
+            # The operation each button performs is deliberately NOT shown --
+            # players work out the four hidden operations by pressing and
+            # watching the value change.
+            ui.text(surface, c.upper(), rect.centerx, rect.centery, size=22,
+                    color=col, align="center", bold=True)

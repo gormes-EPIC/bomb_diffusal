@@ -104,7 +104,7 @@ It runs in two parts:
 
 | # | Module | Player 1 (screen) | Player 2 (hardware + manual) |
 | --- | --- | --- | --- |
-| 1 | Number Lock | reads out the per-button operations + target | presses the buttons to chain to the target |
+| 1 | Number Lock | sees the target; deduces each button's hidden operation | presses the buttons to chain to the target |
 | 2 | Morse Code | types the decoded word (Morse card) | reads the LED-A blinks |
 | 3 | Simon with a Twist | decodes colours with the Simon card | presses the translated buttons |
 | 4 | Invisible Maze | arrow-keys a dot through hidden walls | reads the maze from the manual |

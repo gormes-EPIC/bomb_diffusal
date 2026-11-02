@@ -64,10 +64,8 @@ class Maze(Puzzle):
             self.bump = max(0, self.bump - dt)
 
     def draw(self, surface, area):
-        # Keep only the maze number -- Player 2 needs it to find the right maze
-        # in the manual. No title, no instructions.
-        ui.text(surface, f"MAZE {self.index + 1}", area.centerx, area.y + 30,
-                size=22, color=config.LIGHT, align="midtop", bold=True)
+        # No maze number shown -- the team must work out which maze they're in
+        # from its shape and the goal's position, matching it in the manual.
         # Grid of cell markers (NOT the walls -- those are invisible).
         for y in range(self.maze["h"]):
             for x in range(self.maze["w"]):
