@@ -128,7 +128,9 @@ class PrimeOps(Puzzle):
         cw, chh, gap = 150, 92, 30
         total = n * cw + (n - 1) * gap
         sx = area.centerx - total // 2
-        y = area.bottom - chh - 40
+        # Anchored below centre (not the bottom) so the buttons aren't cut off
+        # on the Pi's display.
+        y = area.centery + 120
         for i, c in enumerate(config.BTN_ORDER):
             rect = pygame.Rect(sx + i * (cw + gap), y, cw, chh)
             col = config.BTN_COLORS[c]

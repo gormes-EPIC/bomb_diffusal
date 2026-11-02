@@ -45,7 +45,9 @@ class Rhythm(Puzzle):
     def _geom(self):
         a = pygame.Rect(0, 64, config.play_width(), config.SCREEN_HEIGHT - 64)
         self.play_btn = pygame.Rect(0, 0, 220, 60)
-        self.play_btn.center = (a.centerx, a.bottom - 70)
+        # Anchored to the centre (not the bottom) so it isn't cut off on the
+        # Pi's display.
+        self.play_btn.center = (a.centerx, a.centery + 150)
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_l:
