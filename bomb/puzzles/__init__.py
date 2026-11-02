@@ -9,6 +9,7 @@ from .logic_gates import LogicGates
 from .rhythm import Rhythm
 from .glyph_addition import GlyphAddition
 from .combination_lock import CombinationLock
+from .scrambler import Scrambler
 
 # Order here is just the catalogue order.
 ALL_PUZZLES = [
@@ -21,4 +22,5 @@ ALL_PUZZLES = [
     Rhythm,
     GlyphAddition,
     CombinationLock,
+    Scrambler,
 ]

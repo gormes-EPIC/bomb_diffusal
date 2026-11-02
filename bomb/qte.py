@@ -15,12 +15,25 @@ from __future__ import annotations
 
 import random
 
-from . import audio, config
+from . import audio, config, ui
 from .puzzle_data import SIMON_RULES
 
 WINDOW = 5.0            # seconds to respond
 MIN_GAP = 20.0         # min seconds between events
 MAX_GAP = 45.0         # max seconds between events
+FEEDBACK_TIME = 1.6    # how long the "-1 MISTAKE" badge stays up after a win
+
+
+def _play_positive():
+    # Bright, cheerful two-note chord.
+    audio.play(1047, 200, 0.4)      # C6
+    audio.play(1319, 200, 0.4)      # E6
+
+
+def _play_disappointed():
+    # Low, downcast dyad.
+    audio.play(196, 320, 0.4)       # G3
+    audio.play(147, 320, 0.4)       # D3
 
 
 class QuickTimeEvent:
@@ -29,17 +42,23 @@ class QuickTimeEvent:
         self.color = None          # the flashed colour key
         self.target_btn = None     # the button that colour converts to
         self.time_left = 0.0
+        self.feedback_t = 0.0      # countdown for the post-win "-1" badge
         self._cooldown = random.uniform(MIN_GAP, MAX_GAP)
 
     def update(self, dt, inputs, game):
+        if self.feedback_t > 0:
+            self.feedback_t = max(0.0, self.feedback_t - dt)
+
         if self.active:
             self.time_left -= dt
             for c in inputs.button_down:
                 if c == self.target_btn:            # correct conversion in time
                     game.mistakes = max(0, game.mistakes - 1)
-                    audio.play(880, 220, 0.4)       # success chime
+                    _play_positive()                # positive noise
+                    self.feedback_t = FEEDBACK_TIME  # show the "-1 MISTAKE" badge
                     self._end()
-                else:                               # wrong button: nothing
+                else:                               # wrong button: disappointed
+                    _play_disappointed()            # ...noise, but no visual
                     self._end()
                 return
             if self.time_left <= 0:                 # timed out: nothing
@@ -72,3 +91,12 @@ class QuickTimeEvent:
         """Fill the whole screen with the flashed colour -- no instructions."""
         if self.active:
             surface.fill(config.BTN_COLORS[self.color])
+
+        # After a win, flash a big "-1 MISTAKE" in the top-right corner. Nothing
+        # is drawn on a miss.
+        if self.feedback_t > 0:
+            x = config.SCREEN_WIDTH - 40
+            ui.text(surface, "-1", x, 80, size=72, color=config.OK,
+                    align="topright", bold=True)
+            ui.text(surface, "MISTAKE", x, 156, size=26, color=config.OK,
+                    align="topright", bold=True)

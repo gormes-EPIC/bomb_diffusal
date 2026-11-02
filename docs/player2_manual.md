@@ -49,3 +49,20 @@ Use the ruler against the scale bar for distances, and the protractor for bearin
 
 
 ![Circuit CICERO](assets/circuit_cicero.png)
+
+
+## Junction Boxes
+
+Each box joins its numbered **left** ports to its **right** ports. Trace a wire to a box on screen, read the port number it meets, and read off the port it leaves by. (→ N means that left port exits at right port N.)
+
+
+![Box I](assets/scramble_box_I.png)
+
+
+![Box II](assets/scramble_box_II.png)
+
+
+![Box III](assets/scramble_box_III.png)
+
+
+![Box IV](assets/scramble_box_IV.png)

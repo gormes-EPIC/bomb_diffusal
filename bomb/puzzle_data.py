@@ -246,3 +246,28 @@ RHYTHMS = [
 
 # Pitch (Hz) for each button colour, used by the tone generator.
 BUTTON_TONE = {"red": 294, "yellow": 370, "green": 440, "blue": 587}
+
+# --------------------------------------------------------------------------- #
+# Puzzle 10 -- Wire Scrambler (Enigma-style)
+# A tangle of coloured wires runs input letters through two black "junction
+# boxes" to output letters.  The wires either side of a box are on screen; the
+# wiring INSIDE each box is hidden and printed only in Player 2's manual.  These
+# fixed box wirings are what the manual renders, so paper and bomb always match.
+#
+# Each box is a permutation of range(SCRAMBLE_N): index = left port (0-based),
+# value = the right port it connects to.  Ports are numbered 1..N on screen.
+# --------------------------------------------------------------------------- #
+SCRAMBLE_N = 6
+SCRAMBLE_BOXES = {
+    "I":   [2, 4, 0, 5, 3, 1],
+    "II":  [5, 3, 1, 4, 0, 2],
+    "III": [1, 5, 4, 0, 2, 3],
+    "IV":  [4, 0, 3, 1, 5, 2],
+}
+
+# Secret words the scrambler can hide.  Each uses at most SCRAMBLE_N distinct
+# letters so it fits the six terminals.
+SCRAMBLE_WORDS = [
+    "CODE", "WIRE", "FUSE", "BOLT", "GEAR", "LOCK", "COIL", "NODE",
+    "RELAY", "SPARK", "SIGNAL", "DECODE", "CIPHER", "ENIGMA", "SECRET",
+]
