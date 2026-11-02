@@ -319,9 +319,9 @@ def write_player1(glyph_imgs):
     _write(os.path.join(DOCS, "player1_decoder_cards.md"), out)
 
 
-def write_player2(glyph_imgs, maze_imgs, nav_img, circuit_imgs, scramble_imgs):
+def write_player2(glyph_imgs, maze_imgs, nav_img, scramble_imgs):
     # Player 2's reference data only: the mazes, the map, the symbol tables and
-    # the labelled circuits. No puzzle names and no how-to narration.
+    # the scrambler junction boxes. No puzzle names and no how-to narration.
     out = [HEADER_NOTE]
     w = out.append
     w("# Player 2\n")
@@ -353,13 +353,6 @@ def write_player2(glyph_imgs, maze_imgs, nav_img, circuit_imgs, scramble_imgs):
             cells += ["", "", ""]
         w("| " + " | ".join(cells) + " |")
 
-    # ---- Circuits ----
-    w("\n## Circuits\n")
-    w("**AND** both on. **OR** either on. **XOR** inputs differ. **NOT** flips "
-      "its input.\n")
-    for circuit, img in zip(pd.CIRCUITS, circuit_imgs):
-        w(f"\n![Circuit {circuit['id']}]({img})\n")
-
     # ---- Wire-scrambler junction boxes ----
     w("\n## Junction Boxes\n")
     w("Each box joins its numbered **left** ports to its **right** ports. Trace "
@@ -383,13 +376,14 @@ def main():
     glyph_imgs = {name: render_glyph_png(name) for name in GLYPHS}
     maze_imgs = [render_maze_png(i) for i in range(pd.maze_count())]
     nav_img = render_nav_map_png()
-    circuit_imgs = [render_circuit_png(c) for c in pd.CIRCUITS]
+    # The logic-gates circuit puzzle is retired: render_circuit_png and the
+    # CIRCUITS data are kept, but no circuit images or manual section are made.
     scramble_imgs = {name: render_scramble_box_png(name, perm)
                      for name, perm in pd.SCRAMBLE_BOXES.items()}
     write_player1(glyph_imgs)
-    write_player2(glyph_imgs, maze_imgs, nav_img, circuit_imgs, scramble_imgs)
+    write_player2(glyph_imgs, maze_imgs, nav_img, scramble_imgs)
     print(f"assets: {len(glyph_imgs)} glyphs, {len(maze_imgs)} mazes, "
-          f"1 map, {len(circuit_imgs)} circuits, {len(scramble_imgs)} boxes")
+          f"1 map, {len(scramble_imgs)} boxes")
 
 
 if __name__ == "__main__":

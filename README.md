@@ -8,7 +8,7 @@ other holds the manual and the hardware. Neither can win alone.
 - **Player 2** - two RGB LEDs, four coloured buttons, a rotary encoder, and the
   **Field Manual**.
 
-Each game randomly picks **6 of the 11 puzzles** and presents them in a random
+Each game randomly picks **6 of the 10 puzzles** and presents them in a random
 order behind a **15-minute** countdown shown at the top of the screen at all
 times. Disarm all six and the team wins; let the timer hit zero -- or make
 **5 mistakes** -- and it's boom.
@@ -76,7 +76,7 @@ to the desktop mock. To launch automatically on boot, add a `.desktop` file to
 ## Hardware test / bring-up
 
 Before relying on the real bomb, run the bench-test tool to confirm every piece
-of Player 2's hardware works and to step through all eleven puzzles **in order**
+of Player 2's hardware works and to step through all ten puzzles **in order**
 (not the random six):
 
 ```bash
@@ -88,7 +88,7 @@ It runs in two parts:
 1. **Self-test** - cycles each RGB LED through red/green/blue/white (so you can
    catch swapped colour channels), lights each button as you press it, reads the
    rotary encoder in both directions, and plays the four button tones.
-2. **Puzzles 1-11** - each puzzle in fixed order, with **no bomb timer** and no
+2. **Puzzles 1-10** - each puzzle in fixed order, with **no bomb timer** and no
    way to lose. Use the on-screen keys to move around:
 
    | Key | Action |
@@ -100,7 +100,7 @@ It runs in two parts:
    | `T` | (audio step) replay the tones |
    | `Esc` | quit |
 
-## The eleven puzzles
+## The ten puzzles
 
 | # | Module | Player 1 (screen) | Player 2 (hardware + manual) |
 | --- | --- | --- | --- |
@@ -109,12 +109,11 @@ It runs in two parts:
 | 3 | Simon with a Twist | decodes colours with the Simon card | presses the translated buttons |
 | 4 | Invisible Maze | arrow-keys a dot through hidden walls | reads the maze from the manual |
 | 5 | Navigation | reads the directions, picks a landmark | traces the route on the map |
-| 6 | Turn on the LED | clicks input switches (blank gates) | circuit diagram names each gate |
-| 7 | Rhythm Lock | sees the note names appear | replays the rhythm on the buttons |
-| 8 | Glyph Addition | reads the symbol equation, types total | symbol-value table in the manual |
-| 9 | Combination Lock | reads the dial numbers + turn directions | spins the encoder to dial the combination |
-| 10 | Wire Scrambler | traces the coloured wires end-to-end | reads the hidden junction-box wiring from the manual |
-| 11 | Check, Please! | reads the board; finds the mating square | presses the colour of the checking square |
+| 6 | Rhythm Lock | sees the note names appear | replays the rhythm on the buttons |
+| 7 | Glyph Addition | reads the symbol equation, types total | symbol-value table in the manual |
+| 8 | Combination Lock | reads the dial numbers + turn directions | spins the encoder to dial the combination |
+| 9 | Wire Scrambler | traces the coloured wires end-to-end | reads the hidden junction-box wiring from the manual |
+| 10 | Check, Please! | reads the board; finds the mating square | presses the colour of the checking square |
 
 ## Keeping the manuals in sync
 
@@ -148,7 +147,7 @@ docs/
   parts_list.md           components + wiring
   player1_decoder_cards.md
   player2_manual.md
-  assets/                 generated PNGs (mazes, map, circuits, symbols)
+  assets/                 generated PNGs (mazes, map, symbols, dial, boxes)
 ```
 
 ## Testing
@@ -159,4 +158,4 @@ The game runs headless for CI/smoke tests with SDL's dummy drivers:
 SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python -m bomb --mock   # (Ctrl-C to stop)
 ```
 
-All eleven puzzles and the full title-to-win flow have been verified this way.
+All ten puzzles and the full title-to-win flow have been verified this way.

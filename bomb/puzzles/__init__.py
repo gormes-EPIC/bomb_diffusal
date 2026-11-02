@@ -1,11 +1,16 @@
-"""Registry of all nine puzzle modules."""
+"""Registry of the active puzzle modules.
+
+Note: the Logic-Gates / "Turn on the LED" circuit puzzle still lives in
+``logic_gates.py`` (and its data in ``puzzle_data.py``), but it is intentionally
+left OUT of the rotation below, so it is neither randomly dealt nor documented.
+Re-add ``LogicGates`` here to bring it back.
+"""
 
 from .prime_ops import PrimeOps
 from .morse import Morse
 from .simon import Simon
 from .maze import Maze
 from .navigation import Navigation
-from .logic_gates import LogicGates
 from .rhythm import Rhythm
 from .glyph_addition import GlyphAddition
 from .combination_lock import CombinationLock
@@ -19,7 +24,6 @@ ALL_PUZZLES = [
     Simon,
     Maze,
     Navigation,
-    LogicGates,
     Rhythm,
     GlyphAddition,
     CombinationLock,

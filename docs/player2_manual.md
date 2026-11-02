@@ -37,20 +37,6 @@ Use the ruler against the scale bar for distances, and the protractor for bearin
 | ![](assets/sym_star.png) | Star | 7 |  | ![](assets/sym_heart.png) | Heart | 8 |
 | ![](assets/sym_arrow.png) | Arrow | 9 |  | ![](assets/sym_cross.png) | Cross | 10 |
 
-## Circuits
-
-**AND** both on. **OR** either on. **XOR** inputs differ. **NOT** flips its input.
-
-
-![Circuit ALPHA](assets/circuit_alpha.png)
-
-
-![Circuit BRAVO](assets/circuit_bravo.png)
-
-
-![Circuit CICERO](assets/circuit_cicero.png)
-
-
 ## Junction Boxes
 
 Each box joins its numbered **left** ports to its **right** ports. Trace a wire to a box on screen, read the port number it meets, and read off the port it leaves by. (→ N means that left port exits at right port N.)
