@@ -112,7 +112,7 @@ It runs in two parts:
 | 6 | Turn on the LED | clicks input switches (blank gates) | circuit diagram names each gate |
 | 7 | Rhythm Lock | sees the note names appear | replays the rhythm on the buttons |
 | 8 | Glyph Addition | reads the symbol equation, types total | symbol-value table in the manual |
-| 9 | Rotation Lock | sees the two symbols | spins the encoder to match them |
+| 9 | Combination Lock | reads the dial numbers + turn directions | spins the encoder to dial the combination |
 
 ## Keeping the manuals in sync
 

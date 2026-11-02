@@ -152,10 +152,6 @@ GLYPHS: dict[str, Glyph] = {
     ]
 }
 
-# Glyphs with no rotational symmetry -- used by Rotation Lock so a rotation is
-# actually visible.
-ROTATION_GLYPHS = ["arrow", "spiral", "crescent"]
-
 
 def render_glyph(name: str, size: int, color, rotation: float = 0.0,
                  width: int | None = None) -> pygame.Surface:

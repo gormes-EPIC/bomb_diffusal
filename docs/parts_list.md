@@ -21,7 +21,7 @@ all of the electronics below belong to **Player 2**.
 | 2 | RGB LED, common-cathode | "LED A" (target) and "LED B" (team). Common-anode also OK - set `LED_COMMON_ANODE = True` in `bomb/config.py`. |
 | 6 | Resistor, 220-330 Ω | One per LED colour channel (2 LEDs x 3 channels). |
 | 4 | Momentary push button | Colour the caps **Red, Yellow, Green, Blue**. Wired to GND; the Pi uses internal pull-ups. |
-| 1 | Rotary encoder (KY-040 or bare EC11) | For the Rotation Lock puzzle. |
+| 1 | Rotary encoder (KY-040 or bare EC11) | For the Combination Lock puzzle. |
 | 1 | Speaker **or** passive buzzer | Rhythm/Morse audio. Easiest: a small USB or 3.5 mm powered speaker. A piezo buzzer on GPIO 12 is a cheaper fallback. |
 | 1 | Half-size breadboard or protoboard | Prototyping. Solder to protoboard for a durable build. |
 | 1 | GPIO breakout / T-Cobbler + ribbon | Optional but makes wiring tidy. |
