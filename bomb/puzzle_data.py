@@ -271,3 +271,27 @@ SCRAMBLE_WORDS = [
     "CODE", "WIRE", "FUSE", "BOLT", "GEAR", "LOCK", "COIL", "NODE",
     "RELAY", "SPARK", "SIGNAL", "DECODE", "CIPHER", "ENIGMA", "SECRET",
 ]
+
+# --------------------------------------------------------------------------- #
+# Puzzle 11 -- Check, Please!  (mate-in-one chess)
+# Each position is a mate-in-one in the spirit of the classic "checkmate
+# puzzles" sets.  ``fen`` is the piece-placement field only (ranks 8->1, from
+# file a->h, uppercase = white).  ``turn`` is the side to move.  ``mate`` is the
+# square a piece moves to to give check(mate); ``decoys`` are three empty, safe
+# squares (moving there does not give check).  The game highlights these four
+# squares in the four button colours and the team presses the mating one.
+# --------------------------------------------------------------------------- #
+CHECK_PUZZLES = [
+    {"fen": "6k1/5ppp/8/8/8/8/8/R5K1",   "turn": "w", "mate": "a8",
+     "decoys": ["e5", "d3", "f4"]},
+    {"fen": "6k1/5ppp/8/8/8/1Q6/8/6K1",  "turn": "w", "mate": "b8",
+     "decoys": ["e5", "d3", "f4"]},
+    {"fen": "6k1/5ppp/8/8/4Q3/8/8/6K1",  "turn": "w", "mate": "e8",
+     "decoys": ["e5", "d3", "f4"]},
+    {"fen": "r5k1/8/8/8/8/8/5PPP/6K1",   "turn": "b", "mate": "a1",
+     "decoys": ["e5", "d6", "c6"]},
+    {"fen": "6k1/8/1q6/8/8/8/5PPP/6K1",  "turn": "b", "mate": "b1",
+     "decoys": ["e5", "d6", "c6"]},
+    {"fen": "6k1/8/8/8/4q3/8/5PPP/6K1",  "turn": "b", "mate": "e1",
+     "decoys": ["e5", "d6", "c6"]},
+]
