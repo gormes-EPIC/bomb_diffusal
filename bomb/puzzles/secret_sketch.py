@@ -59,8 +59,6 @@ class SecretSketch(Puzzle):
         cx = area.centerx
         ui.text(surface, "PLOT THE SEGMENTS", cx, area.y + 22, size=36,
                 color=config.ACCENT, align="midtop", bold=True)
-        ui.text(surface, "Read each line to Player 2, who plots it on the grid.",
-                cx, area.y + 66, size=20, color=config.GREY, align="midtop")
 
         bottom = self._draw_segments(surface, area)
         self._draw_answer(surface, area, bottom)
