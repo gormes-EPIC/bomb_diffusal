@@ -17,6 +17,7 @@ from .combination_lock import CombinationLock
 from .scrambler import Scrambler
 from .check_please import CheckPlease
 from .secret_sketch import SecretSketch
+from .tetris import Tetris
 
 # Order here is just the catalogue order.
 ALL_PUZZLES = [
@@ -31,4 +32,5 @@ ALL_PUZZLES = [
     Scrambler,
     CheckPlease,
     SecretSketch,
+    Tetris,
 ]

@@ -20,8 +20,6 @@ You should also have paper/pencil, and a ruler.
 
 ## Trail Map
 
-Use the ruler against the scale bar for distances, and the protractor for bearings (degrees clockwise from North).
-
 
 ![Trail map](assets/nav_map.png)
 

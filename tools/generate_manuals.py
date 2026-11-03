@@ -348,8 +348,6 @@ def write_player2(glyph_imgs, maze_imgs, nav_img, scramble_imgs, sketch_img):
 
     # ---- Trail map ----
     w("\n## Trail Map\n")
-    w("Use the ruler against the scale bar for distances, and the protractor for "
-      "bearings (degrees clockwise from North).\n")
     w(f"\n![Trail map]({nav_img})\n")
 
     # ---- Symbol values ----
